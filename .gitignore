@@ -255,3 +255,4 @@ Resource.Designer.cs
 *.Localization.cs
 Localizable.strings
 strings.xml
+Resources.resw

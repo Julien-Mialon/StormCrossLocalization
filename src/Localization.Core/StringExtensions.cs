@@ -11,6 +11,11 @@ namespace Localization.Core
 			return source?.Replace(".", "__");
 		}
 
+		public static string UnprocessKey(this string source)
+		{
+			return source?.Replace("__", ".");
+		}
+
 		public static string SimplifyKey(this string source)
 		{
 			if (source == null)

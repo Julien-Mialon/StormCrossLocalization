@@ -50,11 +50,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <IOSLocalizationFile Include="Input.resx" />
-    <IOSLocalizationFile Include="Resource\Bla.resx" />
+    <WindowsPhoneLocalizationFile Include="Input.resx" />
+	  <WindowsPhoneLocalizationFile Include="Resource\Bla.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\Localization.PCL\Localization.PCL.Debug.targets" />
   <Import Project="..\Localization.Android\Localization.Android.Debug.targets" />
   <Import Project="..\Localization.iOS\Localization.iOS.Debug.targets" />
+	<Import Project="..\Localization.WindowsPhone\Localization.WindowsPhone.Debug.targets" />
 </Project>
