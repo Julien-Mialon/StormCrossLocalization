@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01-Localization.PCL", "Localization.PCL\01-Localization.PCL.csproj", "{A1E2EE1E-1472-4758-8D77-FDA469598510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00-Localization.Core", "Localization.Core\00-Localization.Core.csproj", "{12F38D82-651B-4B86-BA5E-16981A38EDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Localization.WindowsPhone", "Localization.WindowsPhone\04-Localization.WindowsPhone.csproj", "{1E3E907C-D88F-4CC0-945B-2DB92317F9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02-Localization.Android", "Localization.Android\02-Localization.Android.csproj", "{A6836CA3-362F-4B49-B99F-6607AAB9EF29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-Localization.iOS", "Localization.iOS\03-Localization.iOS.csproj", "{E3B5B7CE-48CF-4D35-8FA6-804EA750B3D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1E2EE1E-1472-4758-8D77-FDA469598510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E2EE1E-1472-4758-8D77-FDA469598510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E2EE1E-1472-4758-8D77-FDA469598510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E2EE1E-1472-4758-8D77-FDA469598510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F38D82-651B-4B86-BA5E-16981A38EDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F38D82-651B-4B86-BA5E-16981A38EDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F38D82-651B-4B86-BA5E-16981A38EDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F38D82-651B-4B86-BA5E-16981A38EDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E3E907C-D88F-4CC0-945B-2DB92317F9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3E907C-D88F-4CC0-945B-2DB92317F9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3E907C-D88F-4CC0-945B-2DB92317F9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3E907C-D88F-4CC0-945B-2DB92317F9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6836CA3-362F-4B49-B99F-6607AAB9EF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6836CA3-362F-4B49-B99F-6607AAB9EF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6836CA3-362F-4B49-B99F-6607AAB9EF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6836CA3-362F-4B49-B99F-6607AAB9EF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3B5B7CE-48CF-4D35-8FA6-804EA750B3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3B5B7CE-48CF-4D35-8FA6-804EA750B3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3B5B7CE-48CF-4D35-8FA6-804EA750B3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3B5B7CE-48CF-4D35-8FA6-804EA750B3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
