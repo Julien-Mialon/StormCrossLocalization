@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask AssemblyFile="..\tools\Localization.PCL.dll"
+			   TaskName="Localization.PCL.LocalizationPCLTask" />
+
+	<!-- Define newly available build action -->
+	<ItemGroup>
+		<AvailableItemName Include="PCLLocalizationFile" />
+	</ItemGroup>
+
+	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
+
+	<Target Name="StormLocalizationTask">
+		<!--Execute resw transformation-->
+		<LocalizationPCLTask InputFiles="@(PCLLocalizationFile)"
+							 DefaultNamespace="$(RootNamespace)"
+							 />
+	</Target>
+</Project>

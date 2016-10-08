@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Tasks;
 using Microsoft.Build.Utilities;
 
 namespace Localization.Core
@@ -74,13 +73,10 @@ namespace Localization.Core
 			AfterRead();
 
 			BeforeGeneration();
-			foreach (string directory in resxFiles.Keys)
-			{
-				Generate(directory, resxFiles[directory]);
-			}
+			Generate(resxFiles);
 			AfterGeneration();
 
-			CompleteTask();
+			SetOutputVariables();
 			return !Log.HasLoggedErrors;
 		}
 
@@ -115,7 +111,7 @@ namespace Localization.Core
 			
 		}
 
-		protected virtual void Generate(string directory, List<ResxFile> files)
+		protected virtual void Generate(Dictionary<string, List<ResxFile>> files)
 		{
 			
 		}
@@ -125,7 +121,7 @@ namespace Localization.Core
 			
 		}
 
-		protected virtual void CompleteTask()
+		protected virtual void SetOutputVariables()
 		{
 			
 		}
