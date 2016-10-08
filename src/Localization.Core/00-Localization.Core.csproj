@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseLocalizationTask.cs" />
+    <Compile Include="CodeHelper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ResxFile.cs" />
     <Compile Include="StringExtensions.cs" />

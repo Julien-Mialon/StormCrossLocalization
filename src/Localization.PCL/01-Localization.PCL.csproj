@@ -56,6 +56,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Localization.PCL.Debug.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Localization.PCL.targets">
       <SubType>Designer</SubType>
     </None>

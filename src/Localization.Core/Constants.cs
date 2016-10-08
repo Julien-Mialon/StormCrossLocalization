@@ -12,6 +12,7 @@
 		public const string INTERFACE_SERVICE_NAME = "ILocalizationService";
 		public const string IMPLEMENTATION_SERVICE_NAME = "LocalizationService";
 		public const string SERVICE_METHOD_NAME = "Get";
+		public const string LOCALIZED_STRINGS_NAME = "LocalizedStrings";
 
 		//file
 		public const string FILE_SUFFIX = ".Localization.cs";
