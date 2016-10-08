@@ -18,17 +18,32 @@ namespace Localization.Core
 
 		[Required]
 		public string DefaultNamespace { get; set; }
-
-		[Required]
+		
 		public string Namespace { get; set; }
+		
+		protected string GenerationNamespace
+		{
+			get
+			{
+				if (!string.IsNullOrEmpty(Namespace))
+				{
+					return Namespace;
+				}
 
-		[Output]
-		public ITaskItem[] GeneratedStrings { get; private set; }
+				if (string.IsNullOrEmpty(DefaultNamespace))
+				{
+					return "Storm.Localization";
+				}
 
-		[Output]
-		public ITaskItem[] GeneratedCSharp { get; private set; }
+				int index = DefaultNamespace.IndexOf('.');
+				if (index < 0)
+				{
+					return DefaultNamespace;
+				}
 
-		private readonly List<string> _keys = new List<string>();
+				return DefaultNamespace.Substring(0, index);
+			}
+		}
 
 		public override bool Execute()
 		{
