@@ -10,7 +10,7 @@ const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/tools";
 const string DEPLOYMENT_BUILD_DIRECTORY = DEPLOYMENT_DIRECTORY + "/build";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.1";
+const string NUGET_VERSION = "0.0.4";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
@@ -67,6 +67,7 @@ Task(RELEASE)
 		}
 
 		CopyFiles(ROOT_PATH + "**/*.targets", DEPLOYMENT_BUILD_DIRECTORY);
+		CopyFileToDirectory("Storm.CrossLocalization.targets", DEPLOYMENT_BUILD_DIRECTORY);
 		DeleteFiles(DEPLOYMENT_BUILD_DIRECTORY + "/**/*.Debug.targets");
 
 		//generate nuspec

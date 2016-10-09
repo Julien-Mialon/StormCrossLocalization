@@ -8,9 +8,7 @@
 		<AvailableItemName Include="PCLLocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
-
-	<Target Name="StormLocalizationTask">
+	<Target Name="StormPCLLocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationPCLTask InputFiles="@(PCLLocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"

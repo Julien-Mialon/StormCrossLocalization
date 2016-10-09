@@ -48,7 +48,12 @@ namespace Localization.Core
 		{
 			Dictionary<string, List<ResxFile>> resxFiles = new Dictionary<string, List<ResxFile>>();
 
-			Log.LogMessage(MessageImportance.High, "StormCrossLocalization: Processing strings file");
+			if(InputFiles == null || InputFiles.Length == 0)
+			{
+				return true;
+			}
+
+			Log.LogMessage(MessageImportance.High, $"StormCrossLocalization: Processing strings file ({this.GetType().Name})");
 			BeforeRead();
 			foreach (ITaskItem inputFile in InputFiles)
 			{

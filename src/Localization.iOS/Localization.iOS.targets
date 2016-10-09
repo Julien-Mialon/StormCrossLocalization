@@ -8,9 +8,7 @@
 		<AvailableItemName Include="IOSLocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
-
-	<Target Name="StormLocalizationTask">
+	<Target Name="StormIOSLocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationIOSTask InputFiles="@(IOSLocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"

@@ -8,9 +8,7 @@
 		<AvailableItemName Include="WindowsPhoneLocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
-
-	<Target Name="StormLocalizationTask">
+	<Target Name="StormWindowsPhoneLocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationWindowsPhoneTask InputFiles="@(WindowsPhoneLocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"

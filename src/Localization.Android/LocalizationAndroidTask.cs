@@ -219,6 +219,7 @@ namespace Localization.Android
 				CodeMemberProperty property = new CodeMemberProperty
 				{
 					Name = key,
+					Type = new CodeTypeReference(typeof(string)),
 					Attributes = MemberAttributes.Public | MemberAttributes.Static
 				};
 

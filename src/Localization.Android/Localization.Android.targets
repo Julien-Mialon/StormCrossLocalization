@@ -8,9 +8,7 @@
 		<AvailableItemName Include="AndroidLocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
-
-	<Target Name="StormLocalizationTask">
+	<Target Name="StormAndroidLocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationAndroidTask InputFiles="@(AndroidLocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"
