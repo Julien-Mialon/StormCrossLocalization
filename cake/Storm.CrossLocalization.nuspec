@@ -9,7 +9,7 @@
 		<licenseUrl>https://github.com/Julien-Mialon/StormCrossLocalization/blob/master/LICENSE</licenseUrl>
 		<projectUrl>https://github.com/Julien-Mialon/StormCrossLocalization</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Pre compilation task to help Localization on Android. This will simply turn Resw or Resx file to a Strings.xml for Android.</description>
+		<description>Pre compilation task to help Localization on cross platform mobile app.</description>
 		<releaseNotes>Initial release.</releaseNotes>
 		<copyright>Copyright 2016</copyright>
 		<tags>localization mvvm android ios wp pcl xamarin</tags>

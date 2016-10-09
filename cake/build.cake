@@ -1,10 +1,17 @@
+#addin "Cake.ExtendedNuGet"
+#addin "nuget:?package=NuGet.Core&version=2.12.0"
+
 
 const string ROOT_PATH = "../src/";
 const string SOLUTION_PATH = ROOT_PATH + "StormCrossLocalization.sln";
-const string DEPLOYMENT_DIRECTORY = "../artifacts";
+const string ARTIFACTS_DIRECTORY = "../artifacts";
+const string DEPLOYMENT_DIRECTORY = "../build";
 const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/tools";
 const string DEPLOYMENT_BUILD_DIRECTORY = DEPLOYMENT_DIRECTORY + "/build";
 
+const string NUGET_NAME = "Storm.CrossLocalization";
+const string NUGET_VERSION = "0.0.1";
+const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
 const string CLEAN = "clean";
@@ -52,6 +59,7 @@ Task(RELEASE)
 		CreateDirectory(DEPLOYMENT_DIRECTORY);
 		CreateDirectory(DEPLOYMENT_TOOLS_DIRECTORY);
 		CreateDirectory(DEPLOYMENT_BUILD_DIRECTORY);
+		CreateDirectory(ARTIFACTS_DIRECTORY);
 
 		foreach(string libproject in LibProjects)
 		{
@@ -60,6 +68,23 @@ Task(RELEASE)
 
 		CopyFiles(ROOT_PATH + "**/*.targets", DEPLOYMENT_BUILD_DIRECTORY);
 		DeleteFiles(DEPLOYMENT_BUILD_DIRECTORY + "/**/*.Debug.targets");
+
+		//generate nuspec
+		string content = System.IO.File.ReadAllText(NUGET_NAME + ".nuspec");
+		content = content.Replace("{id}", NUGET_NAME)
+							.Replace("{version}", NUGET_VERSION)
+							.Replace("{author}", NUGET_AUTHOR);
+		System.IO.File.WriteAllText(DEPLOYMENT_DIRECTORY + "/" + NUGET_NAME + ".nuspec", content);
+
+		NuGetPack(DEPLOYMENT_DIRECTORY + "/" + NUGET_NAME + ".nuspec", new NuGetPackSettings{
+			OutputDirectory = ARTIFACTS_DIRECTORY
+		});
+
+		NuGetPush(ARTIFACTS_DIRECTORY + "/" + NUGET_NAME + "." + NUGET_VERSION + ".nupkg", new NuGetPushSettings
+		{
+			Source = "https://www.nuget.org/api/v2/package",
+			ApiKey = EnvironmentVariable("NUGET_API_KEY") ?? ""
+		});
 	});
 
 /* Restore tasks */
@@ -81,6 +106,11 @@ Task(FULL_CLEAN)
 		if(DirectoryExists(DEPLOYMENT_DIRECTORY))
 		{
 			DeleteDirectory(DEPLOYMENT_DIRECTORY, true);
+		}
+
+		if(DirectoryExists(ARTIFACTS_DIRECTORY))
+		{
+			DeleteDirectory(ARTIFACTS_DIRECTORY, true);
 		}
 	});
 
