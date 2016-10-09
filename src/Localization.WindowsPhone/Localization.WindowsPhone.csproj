@@ -58,9 +58,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Localization.Core\00-Localization.Core.csproj">
+    <ProjectReference Include="..\Localization.Core\Localization.Core.csproj">
       <Project>{12f38d82-651b-4b86-ba5e-16981a38edee}</Project>
-      <Name>00-Localization.Core</Name>
+      <Name>Localization.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
