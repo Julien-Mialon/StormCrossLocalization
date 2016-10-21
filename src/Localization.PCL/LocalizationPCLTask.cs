@@ -96,7 +96,7 @@ namespace Localization.PCL
 			CodeTypeDeclaration classDeclaration = new CodeTypeDeclaration(Constants.LOCALIZED_STRINGS_NAME)
 			{
 				IsClass = true,
-				TypeAttributes = TypeAttributes.Public | TypeAttributes.Sealed,
+				TypeAttributes = TypeAttributes.NestedAssembly | TypeAttributes.Sealed,
 			};
 			codeNamespace.Types.Add(classDeclaration);
 
