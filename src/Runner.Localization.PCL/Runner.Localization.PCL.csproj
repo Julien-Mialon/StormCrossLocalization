@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumStrings.Localization.cs" />
+    <Compile Include="ILocalizationService.Localization.cs" />
+    <Compile Include="LocalizedStrings.Localization.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,12 +53,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <WindowsPhoneLocalizationFile Include="Input.resx" />
-	  <WindowsPhoneLocalizationFile Include="Resource\Bla.resx" />
+    <PCLLocalizationFile Include="Input.resx" />
+    <PCLLocalizationFile Include="Resource\Bla.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\Localization.PCL\Localization.PCL.Debug.targets" />
+  <!--
   <Import Project="..\Localization.Android\Localization.Android.Debug.targets" />
   <Import Project="..\Localization.iOS\Localization.iOS.Debug.targets" />
 	<Import Project="..\Localization.WindowsPhone\Localization.WindowsPhone.Debug.targets" />
+	-->
 </Project>
