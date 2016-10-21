@@ -10,7 +10,7 @@ const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/tools";
 const string DEPLOYMENT_BUILD_DIRECTORY = DEPLOYMENT_DIRECTORY + "/build";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.6";
+const string NUGET_VERSION = "0.0.7";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
