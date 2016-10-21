@@ -25,6 +25,7 @@ namespace Localization.PCL
 
 			GenerateEnumFields(keys);
 			GenerateLocalizationService(keys);
+			GenerateLocalizedStrings(keys);
 
 			base.Generate(files);
 		}
@@ -87,6 +88,9 @@ namespace Localization.PCL
 			// for class declaration
 			CodeNamespace codeNamespace = new CodeNamespace(GenerationNamespace);
 			codeUnit.Namespaces.Add(codeNamespace);
+
+			codeNamespace.Imports.Add(new CodeNamespaceImport("System"));
+
 
 			// create class
 			CodeTypeDeclaration classDeclaration = new CodeTypeDeclaration(Constants.LOCALIZED_STRINGS_NAME)
