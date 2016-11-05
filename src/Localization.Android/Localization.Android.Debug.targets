@@ -5,15 +5,16 @@
 
 	<!-- Define newly available build action -->
 	<ItemGroup>
-		<AvailableItemName Include="AndroidLocalizationFile" />
+		<AvailableItemName Include="LocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="BeforeBuild" DependsOnTargets="StormLocalizationTask" />
-
-	<Target Name="StormLocalizationTask">
+	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
-		<LocalizationAndroidTask InputFiles="@(AndroidLocalizationFile)"
-							 DefaultNamespace="$(RootNamespace)"
-							 />
+		<LocalizationAndroidTask InputFiles="@(LocalizationFile)"
+								 DefaultNamespace="$(RootNamespace)"
+								 >
+			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
+			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
+		</LocalizationAndroidTask>
 	</Target>
 </Project>

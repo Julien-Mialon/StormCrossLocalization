@@ -12,8 +12,17 @@ namespace Localization.Core
 	{
 		private const string LINK_METADATA_NAME = "Link";
 
+		protected readonly List<string> OutputCompileFilePath = new List<string>();
+		protected readonly List<string> OutputResourceFilePath = new List<string>();
+
 		[Required]
 		public ITaskItem[] InputFiles { get; set; }
+
+		[Output]
+		public ITaskItem[] OutputCompileFiles { get; set; }
+
+		[Output]
+		public ITaskItem[] OutputResourceFiles { get; set; }
 
 		[Required]
 		public string DefaultNamespace { get; set; }
@@ -82,6 +91,10 @@ namespace Localization.Core
 			AfterGeneration();
 
 			SetOutputVariables();
+
+			OutputCompileFiles = OutputCompileFilePath.Select(x => (ITaskItem) new TaskItem(x)).ToArray();
+			OutputResourceFiles = OutputResourceFilePath.Select(x => (ITaskItem)new TaskItem(x)).ToArray();
+
 			return !Log.HasLoggedErrors;
 		}
 

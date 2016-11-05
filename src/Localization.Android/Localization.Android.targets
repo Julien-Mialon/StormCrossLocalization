@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<UsingTask AssemblyFile="..\tools\Localization.Android.dll"
+	<UsingTask AssemblyFile="..\..\localization\Localization.Android.dll"
 				   TaskName="Localization.Android.LocalizationAndroidTask" />
 
 	<!-- Define newly available build action -->
 	<ItemGroup>
-		<AvailableItemName Include="AndroidLocalizationFile" />
+		<AvailableItemName Include="LocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="StormAndroidLocalizationTask" BeforeTargets="BeforeBuild">
+	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
-		<LocalizationAndroidTask InputFiles="@(AndroidLocalizationFile)"
-							 DefaultNamespace="$(RootNamespace)"
-							 />
+		<LocalizationAndroidTask InputFiles="@(LocalizationFile)"
+								 DefaultNamespace="$(RootNamespace)"
+								 >
+			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
+			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
+		</LocalizationAndroidTask>
 	</Target>
 </Project>

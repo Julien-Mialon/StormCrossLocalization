@@ -1,0 +1,3 @@
+#generated files by localization tasks
+*.Localization.cs
+strings.xml
