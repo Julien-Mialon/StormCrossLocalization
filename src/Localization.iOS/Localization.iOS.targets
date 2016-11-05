@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<UsingTask AssemblyFile="..\tools\Localization.iOS.dll"
+	<UsingTask AssemblyFile="..\..\localization\Localization.iOS.dll"
 				   TaskName="Localization.iOS.LocalizationIOSTask" />
 
 	<!-- Define newly available build action -->
 	<ItemGroup>
-		<AvailableItemName Include="IOSLocalizationFile" />
+		<AvailableItemName Include="LocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="StormIOSLocalizationTask" BeforeTargets="BeforeBuild">
+	<Target Name="LocalizationTask" BeforeTargets="PrepareForBuild">
 		<!--Execute resw transformation-->
-		<LocalizationIOSTask InputFiles="@(IOSLocalizationFile)"
+		<LocalizationIOSTask InputFiles="@(LocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"
-							 />
+							 >
+			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
+			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
+		</LocalizationIOSTask>
 	</Target>
 </Project>

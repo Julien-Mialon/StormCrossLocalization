@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<UsingTask AssemblyFile="..\tools\Localization.WindowsPhone.dll"
+	<UsingTask AssemblyFile="..\..\localization\Localization.WindowsPhone.dll"
 				   TaskName="Localization.WindowsPhone.LocalizationWindowsPhoneTask" />
 
 	<!-- Define newly available build action -->
 	<ItemGroup>
-		<AvailableItemName Include="WindowsPhoneLocalizationFile" />
+		<AvailableItemName Include="LocalizationFile" />
 	</ItemGroup>
 
-	<Target Name="StormWindowsPhoneLocalizationTask" BeforeTargets="BeforeBuild">
+	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
-		<LocalizationWindowsPhoneTask InputFiles="@(WindowsPhoneLocalizationFile)"
+		<LocalizationWindowsPhoneTask InputFiles="@(LocalizationFile)"
 							 DefaultNamespace="$(RootNamespace)"
-							 />
-		<!--
-		<PRIResource Include="@(WindowsPhoneLocalizationFile)" />
-		-->
+							 >
+			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
+			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
+		</LocalizationWindowsPhoneTask>
 	</Target>
 </Project>

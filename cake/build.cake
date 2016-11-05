@@ -6,11 +6,16 @@ const string ROOT_PATH = "../src/";
 const string SOLUTION_PATH = ROOT_PATH + "StormCrossLocalization.sln";
 const string ARTIFACTS_DIRECTORY = "../artifacts";
 const string DEPLOYMENT_DIRECTORY = "../build";
-const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/tools";
+const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/localization";
 const string DEPLOYMENT_BUILD_DIRECTORY = DEPLOYMENT_DIRECTORY + "/build";
 
+const string PCL_TFM = "netstandard1.0";
+const string WINPHONE_TFM = "win;wp;uap";
+const string ANDROID_TFM = "monoandroid";
+const string IOS_TFM = "monotouch;xamarinios";
+
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.7";
+const string NUGET_VERSION = "0.0.8";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
@@ -29,6 +34,14 @@ string[] LibProjects = new []
 	"Localization.Android",
 	"Localization.iOS",
 	"Localization.WindowsPhone"
+};
+
+Tuple<string, string>[] TFMForProjects = new []
+{
+	Tuple.Create("Localization.PCL", PCL_TFM),
+	Tuple.Create("Localization.Android", ANDROID_TFM),
+	Tuple.Create("Localization.iOS", IOS_TFM),
+	Tuple.Create("Localization.WindowsPhone", WINPHONE_TFM)
 };
 
 var target = Argument("target", DEFAULT_TARGET);
@@ -66,9 +79,17 @@ Task(RELEASE)
 			CopyFileToDirectory(ROOT_PATH + libproject + "/bin/Release/" + libproject + ".dll", DEPLOYMENT_TOOLS_DIRECTORY);
 		}
 
-		CopyFiles(ROOT_PATH + "**/*.targets", DEPLOYMENT_BUILD_DIRECTORY);
-		CopyFileToDirectory("Storm.CrossLocalization.targets", DEPLOYMENT_BUILD_DIRECTORY);
-		DeleteFiles(DEPLOYMENT_BUILD_DIRECTORY + "/**/*.Debug.targets");
+		foreach(Tuple<string, string> tfmForProject in TFMForProjects)
+		{
+			string[] tfms = tfmForProject.Item2.Split(';');
+			string projectName = tfmForProject.Item1;
+			foreach(string tfm in tfms)
+			{
+				string directory = DEPLOYMENT_BUILD_DIRECTORY + "/" + tfm;
+				CreateDirectory(directory);
+				CopyFile(ROOT_PATH + projectName + "/" + projectName + ".targets", directory + "/" + NUGET_NAME + ".targets");
+			}
+		}
 
 		//generate nuspec
 		string content = System.IO.File.ReadAllText(NUGET_NAME + ".nuspec");
@@ -77,10 +98,11 @@ Task(RELEASE)
 							.Replace("{author}", NUGET_AUTHOR);
 		System.IO.File.WriteAllText(DEPLOYMENT_DIRECTORY + "/" + NUGET_NAME + ".nuspec", content);
 
+		
 		NuGetPack(DEPLOYMENT_DIRECTORY + "/" + NUGET_NAME + ".nuspec", new NuGetPackSettings{
 			OutputDirectory = ARTIFACTS_DIRECTORY
 		});
-
+		
 		NuGetPush(ARTIFACTS_DIRECTORY + "/" + NUGET_NAME + "." + NUGET_VERSION + ".nupkg", new NuGetPushSettings
 		{
 			Source = "https://www.nuget.org/api/v2/package",
