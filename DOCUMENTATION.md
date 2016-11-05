@@ -1,9 +1,3 @@
-# Storm.CrossLocalization ![nuget](https://img.shields.io/nuget/v/Storm.CrossLocalization.svg)
-
-This library is available on [nuget](https://www.nuget.org/packages/Storm.CrossLocalization) 
-
-This will help you to share strings and translation for cross-platform applications (**Windows Phone**, **Xamarin.iOS**, **Xamarin.Android**) by transforming resx or resw file to platform specific files and generating some helpers class.
-
 ## How to ?
 - Reference this package in your project (**PCL**, **WindowsPhone**, **Xamarin.iOS** or **Xamarin.Android**)
 - Add your resx or resw file to the appropriate location (for easy sharing, I recommend putting the resx file at the root directory of the solution and add it as link in all projects)
@@ -33,11 +27,3 @@ This will help you to share strings and translation for cross-platform applicati
 
 - What if I want some strings to be different accross platforms ?
 > Very easy, just suffix the key of the string with \_WP, \_Android or \_iOS this will generate the item only for the selected platform with the key without the suffix.
-
-## Contributions
-
-- You want to add support for another platform ? 
-- You found an issue ?
-- You have any idea to improve this project ?
-
-Do not hesitate to contribute to it, opening issue or creating pull requests are very welcome !
