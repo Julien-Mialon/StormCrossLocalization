@@ -224,7 +224,7 @@ namespace Localization.WindowsPhone
 			//constructor
 			CodeConstructor constructor = new CodeConstructor
 			{
-				Attributes = MemberAttributes.Private
+				Attributes = MemberAttributes.Public
 			};
 			classDeclaration.Members.Add(constructor);
 
