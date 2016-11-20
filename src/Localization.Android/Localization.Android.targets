@@ -3,11 +3,6 @@
 	<UsingTask AssemblyFile="..\..\localization\Localization.Android.dll"
 				   TaskName="Localization.Android.LocalizationAndroidTask" />
 
-	<!-- Define newly available build action -->
-	<ItemGroup>
-		<AvailableItemName Include="LocalizationFile" />
-	</ItemGroup>
-
 	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationAndroidTask InputFiles="@(LocalizationFile)"

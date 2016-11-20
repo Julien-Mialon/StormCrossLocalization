@@ -15,7 +15,7 @@ const string ANDROID_TFM = "monoandroid";
 const string IOS_TFM = "monotouch;xamarinios";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.10";
+const string NUGET_VERSION = "0.0.11";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
@@ -88,6 +88,7 @@ Task(RELEASE)
 				string directory = DEPLOYMENT_BUILD_DIRECTORY + "/" + tfm;
 				CreateDirectory(directory);
 				CopyFile(ROOT_PATH + projectName + "/" + projectName + ".targets", directory + "/" + NUGET_NAME + ".targets");
+				CopyFile(ROOT_PATH + projectName + "/" + projectName + ".props", directory + "/" + NUGET_NAME + ".props");
 			}
 		}
 

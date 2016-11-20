@@ -3,11 +3,6 @@
 	<UsingTask AssemblyFile="..\..\localization\Localization.WindowsPhone.dll"
 				   TaskName="Localization.WindowsPhone.LocalizationWindowsPhoneTask" />
 
-	<!-- Define newly available build action -->
-	<ItemGroup>
-		<AvailableItemName Include="LocalizationFile" />
-	</ItemGroup>
-
 	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationWindowsPhoneTask InputFiles="@(LocalizationFile)"

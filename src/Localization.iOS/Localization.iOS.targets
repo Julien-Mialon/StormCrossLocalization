@@ -3,11 +3,6 @@
 	<UsingTask AssemblyFile="..\..\localization\Localization.iOS.dll"
 				   TaskName="Localization.iOS.LocalizationIOSTask" />
 
-	<!-- Define newly available build action -->
-	<ItemGroup>
-		<AvailableItemName Include="LocalizationFile" />
-	</ItemGroup>
-
 	<Target Name="LocalizationTask" BeforeTargets="PrepareForBuild">
 		<!--Execute resw transformation-->
 		<LocalizationIOSTask InputFiles="@(LocalizationFile)"
