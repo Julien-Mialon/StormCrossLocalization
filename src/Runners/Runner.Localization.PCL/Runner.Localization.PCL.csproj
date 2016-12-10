@@ -34,11 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="EnumStrings.Localization.cs" />
-    <Compile Include="LocalizationService.Localization.cs" />
     <Compile Include="LocalizedStrings.Localization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <LocalizationFile Include="Input.resx" />
     <LocalizationFile Include="Resource\Bla.resx" />
+    <Compile Include="ILocalizationService.Localization.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\Localization.PCL\Localization.PCL.Debug.targets" />
