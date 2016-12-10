@@ -2,6 +2,10 @@
 
 This library is available on [nuget](https://www.nuget.org/packages/Storm.CrossLocalization) 
 
+```
+Install-Package Storm.CrossLocalization
+```
+
 This will help you to share strings and translation for cross-platform applications (**Windows Phone**, **Xamarin.iOS**, **Xamarin.Android**) by transforming resx or resw file to platform specific files and generating some helpers class.
 
 ## How to ?
