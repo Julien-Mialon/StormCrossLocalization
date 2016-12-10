@@ -15,7 +15,7 @@ const string ANDROID_TFM = "monoandroid";
 const string IOS_TFM = "monotouch;xamarinios";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.12";
+const string NUGET_VERSION = "0.0.13";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
@@ -52,12 +52,10 @@ Task(BUILD)
 	.Does(() => {
 		foreach(string libproject in LibProjects)
 		{
-			MSBuild(ROOT_PATH + libproject + "/" + libproject + ".csproj", new MSBuildSettings{
-				Verbosity = Verbosity.Minimal,
-				ToolVersion = MSBuildToolVersion.VS2015,
-				Configuration = "Release",
-				PlatformTarget = PlatformTarget.MSIL //AnyCPU
-			});
+			DotNetBuild(ROOT_PATH + libproject + "/" + libproject + ".csproj", c => c.SetConfiguration("Release")
+				.SetVerbosity(Verbosity.Minimal)
+				.WithTarget("Build")
+				.WithProperty("Platform", "AnyCPU"));
 		}
 	});
 
