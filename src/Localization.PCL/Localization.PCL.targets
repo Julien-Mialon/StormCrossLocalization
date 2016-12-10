@@ -3,11 +3,6 @@
 	<UsingTask AssemblyFile="..\..\localization\Localization.PCL.dll"
 			   TaskName="Localization.PCL.LocalizationPCLTask" />
 
-	<!-- Define newly available build action -->
-	<ItemGroup>
-		<AvailableItemName Include="LocalizationFile" />
-	</ItemGroup>
-
 	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationPCLTask InputFiles="@(LocalizationFile)"
