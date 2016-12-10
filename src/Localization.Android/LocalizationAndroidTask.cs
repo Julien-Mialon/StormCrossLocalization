@@ -74,10 +74,14 @@ namespace Localization.Android
 			{
 				XmlNode elementNode = document.CreateElement("string");
 				elementNode.InnerText = pair.Value;
+				
 				XmlAttribute attributeName = document.CreateAttribute("name");
 				attributeName.Value = pair.Key;
-				// ReSharper disable once PossibleNullReferenceException
 				elementNode.Attributes.Append(attributeName);
+
+				XmlAttribute formattedAttribute = document.CreateAttribute("formatted");
+				formattedAttribute.Value = "false";
+				elementNode.Attributes.Append(formattedAttribute);
 
 				rootNode.AppendChild(elementNode);
 			}
