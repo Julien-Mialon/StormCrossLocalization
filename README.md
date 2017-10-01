@@ -1,4 +1,4 @@
-# Storm.CrossLocalization ![nuget](https://img.shields.io/nuget/v/Storm.CrossLocalization.svg)
+# Storm.CrossLocalization [![nuget](https://img.shields.io/nuget/v/Storm.CrossLocalization.svg)](https://www.nuget.org/packages/Storm.CrossLocalization) [![Build status](https://ci.appveyor.com/api/projects/status/jp9n6mgirt0pgpu9?svg=true)](https://ci.appveyor.com/project/Julien-Mialon/stormcrosslocalization)
 
 This library is available on [nuget](https://www.nuget.org/packages/Storm.CrossLocalization) 
 
@@ -7,6 +7,10 @@ Install-Package Storm.CrossLocalization
 ```
 
 This will help you to share strings and translation for cross-platform applications (**Windows Phone**, **Xamarin.iOS**, **Xamarin.Android**) by transforming resx or resw file to platform specific files and generating some helpers class.
+
+## Detailed blog posts
+- [Part 1/2](http://blog.julienmialon.com/2017/01/part-one-storm-crosslocalization-how-to-share-your-strings-on-xamarin-applications/)
+- [Part 2/2](http://blog.julienmialon.com/2017/01/part-two-storm-crosslocalization-how-to-share-your-strings-on-xamarin-applications/)
 
 ## How to ?
 - Reference this package in your project (**PCL**, **WindowsPhone**, **Xamarin.iOS** or **Xamarin.Android**)

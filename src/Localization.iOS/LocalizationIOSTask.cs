@@ -52,17 +52,15 @@ namespace Localization.iOS
 			foreach (var item in platformSpecificContent)
 			{
 				string key = item.Key.SimplifyKey();
-				if (content.ContainsKey(key))
-				{
-					content[key] = item.Value;
-				}
-				else
-				{
-					content.Add(key, item.Value);
-				}
+				content[key] = item.Value;
 			}
 			string outputFile = Path.Combine(directory, "Localizable.strings");
-			File.WriteAllLines(outputFile, content.Select(x => $"\"{x.Key}\" = \"{x.Value}\";"));
+			if (content.Count == 0) //ios could not handle empty Localizable.strings file so add a default one if none are present
+			{
+				content["Library"] = "Storm.CrossLocalization";
+			}
+
+			FileHelper.WriteIfDifferent(outputFile, content.Select(x => $"\"{x.Key}\" = \"{x.Value}\";"));
 			OutputResourceFilePath.Add(outputFile);
 		}
 
