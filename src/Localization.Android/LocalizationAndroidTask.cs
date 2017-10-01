@@ -235,7 +235,9 @@ namespace Localization.Android
 
 		private string ProcessValue(string value)
 		{
-			return value.Replace("'", "\\'");
+			return value.Replace("\\", "\\\\")
+						.Replace("\"", "\\\"")
+						.Replace("'", "\\'");
 		}
 	}
 }
