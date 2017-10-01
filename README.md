@@ -1,4 +1,4 @@
-# Storm.CrossLocalization [![nuget](https://img.shields.io/nuget/v/Storm.CrossLocalization.svg)](https://www.nuget.org/packages/Storm.CrossLocalization)
+# Storm.CrossLocalization [![nuget](https://img.shields.io/nuget/v/Storm.CrossLocalization.svg)](https://www.nuget.org/packages/Storm.CrossLocalization) [![Build status](https://ci.appveyor.com/api/projects/status/jp9n6mgirt0pgpu9?svg=true)](https://ci.appveyor.com/project/Julien-Mialon/stormcrosslocalization)
 
 This library is available on [nuget](https://www.nuget.org/packages/Storm.CrossLocalization) 
 
