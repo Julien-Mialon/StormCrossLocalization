@@ -1,0 +1,15 @@
+version: 1.0.{build}
+branches:
+  only:
+  - develop
+  - master
+skip_tags: true
+image: Visual Studio 2017
+before_build:
+- cmd: >-
+    nuget restore src/Storm.CrossLocalization.sln
+build:
+  project: src/Storm.CrossLocalization.sln
+  parallel: true
+  verbosity: minimal
+test: off
