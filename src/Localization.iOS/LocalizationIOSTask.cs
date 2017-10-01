@@ -60,7 +60,7 @@ namespace Localization.iOS
 				content["Library"] = "Storm.CrossLocalization";
 			}
 
-			File.WriteAllLines(outputFile, content.Select(x => $"\"{x.Key}\" = \"{x.Value}\";"));
+			FileHelper.WriteIfDifferent(outputFile, content.Select(x => $"\"{x.Key}\" = \"{x.Value}\";"));
 			OutputResourceFilePath.Add(outputFile);
 		}
 

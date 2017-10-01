@@ -107,7 +107,7 @@ namespace Localization.WindowsPhone
 			}
 
 			string filepath = Path.Combine(directory, "Resources.resw");
-			document.Save(filepath);
+			document.SaveIfDifferent(filepath);
 			OutputResourceFilePath.Add(filepath);
 		}
 

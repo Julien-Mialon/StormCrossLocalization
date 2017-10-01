@@ -87,7 +87,7 @@ namespace Localization.Android
 			}
 
 			string filepath = Path.Combine(directory, "strings.xml");
-			document.Save(filepath);
+			document.SaveIfDifferent(filepath);
 			OutputResourceFilePath.Add(filepath);
 		}
 
