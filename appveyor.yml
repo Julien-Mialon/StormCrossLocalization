@@ -7,9 +7,9 @@ skip_tags: true
 image: Visual Studio 2017
 before_build:
 - cmd: >-
-    nuget restore src/Storm.CrossLocalization.sln
+    nuget restore src/StormCrossLocalization.sln
 build:
-  project: src/Storm.CrossLocalization.sln
+  project: src/StormCrossLocalization.sln
   parallel: true
   verbosity: minimal
 test: off
