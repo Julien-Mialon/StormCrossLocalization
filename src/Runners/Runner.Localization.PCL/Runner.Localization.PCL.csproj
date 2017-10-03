@@ -40,6 +40,9 @@
     <LocalizationFile Include="Resource\Bla.resx" />
     <Compile Include="ILocalizationService.Localization.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <LocalizationFile Include="Resource\content.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\Localization.PCL\Localization.PCL.Debug.targets" />
 </Project>
