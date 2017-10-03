@@ -10,6 +10,12 @@ namespace Localization.Core
 {
 	public abstract class BaseLocalizationTask : Task
 	{
+		public static List<IFileReader> Readers = new List<IFileReader>
+		{
+			new ResxFileReader(),
+			new JsonFileReader()
+		};
+		
 		private const string LINK_METADATA_NAME = "Link";
 
 		protected readonly List<string> OutputCompileFilePath = new List<string>();
@@ -98,20 +104,15 @@ namespace Localization.Core
 			return !Log.HasLoggedErrors;
 		}
 
-		protected virtual Dictionary<string, string> ReadResourceFile(string file)
+		private Dictionary<string, string> ReadResourceFile(string file)
 		{
-			string extension = Path.GetExtension(file)?.TrimStart('.').ToLowerInvariant() ?? string.Empty;
-			if (extension == "resw" || extension == "resx")
+			IFileReader reader = Readers.FirstOrDefault(x => x.HasSupportForFile(file));
+			if (reader == null)
 			{
-				XElement rootElement = XElement.Load(file);
-				return (from dataElement in rootElement.Descendants("data")
-						let key = dataElement.Attribute("name")?.Value ?? string.Empty
-						where !string.IsNullOrEmpty(key)
-						let value = dataElement.Element("value")?.Value
-						where value != null
-						select new { key, value }).ToDictionary(x => x.key, x => x.value);
+				throw new InvalidOperationException($"File {file} is not a supported format");
 			}
-			throw new InvalidOperationException($"File {file} is not a supported format");
+
+			return reader.ReadResourceFile(file);
 		}
 
 		protected virtual void BeforeRead()

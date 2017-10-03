@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,10 +53,16 @@
     <Compile Include="CodeHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="IFileReader.cs" />
+    <Compile Include="JsonFileReader.cs" />
     <Compile Include="ResxFile.cs" />
+    <Compile Include="ResxFileReader.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TaskItemExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
