@@ -15,7 +15,7 @@ const string ANDROID_TFM = "monoandroid";
 const string IOS_TFM = "monotouch;xamarinios";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "0.0.14";
+const string NUGET_VERSION = "1.0.0";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */
@@ -76,6 +76,8 @@ Task(RELEASE)
 		{
 			CopyFileToDirectory(ROOT_PATH + libproject + "/bin/Release/" + libproject + ".dll", DEPLOYMENT_TOOLS_DIRECTORY);
 		}
+		//copy newtonsoft dependency
+		CopyFileToDirectory(ROOT_PATH + LibProjects[0] + "/bin/Release/Newtonsoft.Json.dll", DEPLOYMENT_TOOLS_DIRECTORY);
 
 		foreach(Tuple<string, string> tfmForProject in TFMForProjects)
 		{
