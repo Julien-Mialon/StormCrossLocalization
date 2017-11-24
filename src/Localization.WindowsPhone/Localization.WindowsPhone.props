@@ -2,5 +2,6 @@
 	<!-- Define newly available build action -->
 	<ItemGroup>
 		<AvailableItemName Include="LocalizationFile" />
+		<AvailableItemName Include="LocalizationOverrideFile" />
 	</ItemGroup>
 </Project>

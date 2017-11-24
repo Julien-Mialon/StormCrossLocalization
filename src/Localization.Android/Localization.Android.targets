@@ -6,6 +6,7 @@
 	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationAndroidTask InputFiles="@(LocalizationFile)"
+								 OverrideFiles="@(LocalizationOverrideFile)"
 								 DefaultNamespace="$(RootNamespace)"
 								 >
 			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
