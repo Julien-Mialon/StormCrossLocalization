@@ -15,7 +15,7 @@ const string ANDROID_TFM = "monoandroid";
 const string IOS_TFM = "monotouch;xamarinios";
 
 const string NUGET_NAME = "Storm.CrossLocalization";
-const string NUGET_VERSION = "1.1.0";
+const string NUGET_VERSION = "1.1.1";
 const string NUGET_AUTHOR = "Julien Mialon";
 
 /* constants for target names */

@@ -102,6 +102,11 @@ namespace Localization.Core
 		private Dictionary<string, List<ResxFile>> ReadInputFiles(ITaskItem[] inputs)
 		{
 			Dictionary<string, List<ResxFile>> result = new Dictionary<string, List<ResxFile>>();
+			if(inputs == null)
+			{
+				return result;
+			}
+
 			foreach (ITaskItem inputFile in inputs)
 			{
 				string absoluteFilePath = inputFile.ItemSpec;
