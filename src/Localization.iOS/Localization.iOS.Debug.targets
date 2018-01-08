@@ -11,6 +11,7 @@
 	<Target Name="LocalizationTask" BeforeTargets="PrepareForBuild">
 		<!--Execute resw transformation-->
 		<LocalizationIOSTask InputFiles="@(LocalizationFile)"
+							 OverrideFiles="@(LocalizationOverrideFile)"
 							 DefaultNamespace="$(RootNamespace)"
 							 >
 			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />

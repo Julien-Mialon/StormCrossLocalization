@@ -6,8 +6,9 @@
 	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
 		<!--Execute resw transformation-->
 		<LocalizationWindowsPhoneTask InputFiles="@(LocalizationFile)"
-							 DefaultNamespace="$(RootNamespace)"
-							 >
+									  OverrideFiles="@(LocalizationOverrideFile)"
+									  DefaultNamespace="$(RootNamespace)"
+									  >
 			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
 			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
 		</LocalizationWindowsPhoneTask>
