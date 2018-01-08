@@ -164,42 +164,64 @@ namespace Localization.Core
 			Dictionary<string, string> content = new Dictionary<string, string>();
 			Dictionary<string, string> platformSpecificContent = new Dictionary<string, string>();
 
-			foreach (var item in inputFiles.SelectMany(x => x.Content))
+			foreach (var file in inputFiles)
 			{
-				if (item.Key.IsPlatformSpecificString())
+				foreach (var item in file.Content)
 				{
-					string simplifiedKey = item.Key.SimplifyKey(); 
-					if (IsCurrentPlatformKey(item.Key))
+					if (item.Key.IsPlatformSpecificString())
 					{
-						platformSpecificContent.Add(simplifiedKey, ProcessValue(item.Value));
+						string simplifiedKey = item.Key.SimplifyKey();
+						if (IsCurrentPlatformKey(item.Key))
+						{
+							if (!platformSpecificContent.TryAdd(simplifiedKey, ProcessValue(item.Value)))
+							{
+								Log.LogError($"Duplicated key (key: {item.Key}, file: {file.AbsoluteFilePath})");
+							}
+						}
+
+						keys.Add(simplifiedKey);
 					}
-					keys.Add(simplifiedKey);
-				}
-				else
-				{
-					content.Add(item.Key, ProcessValue(item.Value));
-					keys.Add(item.Key);
+					else
+					{
+						if (!content.TryAdd(item.Key, ProcessValue(item.Value)))
+						{
+							Log.LogError($"Duplicated key (key: {item.Key}, file: {file.AbsoluteFilePath})");
+						}
+
+						keys.Add(item.Key);
+					}
 				}
 			}
 
-			foreach (var item in overrideFiles.SelectMany(x => x.Content))
+			foreach (var file in overrideFiles)
 			{
-				if (item.Key.IsPlatformSpecificString())
+				foreach (var item in file.Content)
 				{
-					string simplifiedKey = item.Key.SimplifyKey(); 
-					if (IsCurrentPlatformKey(item.Key))
+					if (item.Key.IsPlatformSpecificString())
 					{
-						platformSpecificContent[simplifiedKey] = ProcessValue(item.Value);
+						string simplifiedKey = item.Key.SimplifyKey();
+						if (keys.Add(simplifiedKey))
+						{
+							Log.LogError($"Can not add new key using override file (key: {item.Key}, file: {file.AbsoluteFilePath})");
+						}
+
+						if (IsCurrentPlatformKey(item.Key))
+						{
+							platformSpecificContent[simplifiedKey] = ProcessValue(item.Value);
+						}
 					}
-					keys.Add(simplifiedKey);
-				}
-				else
-				{
-					content[item.Key] = ProcessValue(item.Value);
-					keys.Add(item.Key);
+					else
+					{
+						if (keys.Add(item.Key))
+						{
+							Log.LogError($"Can not add new key using override file (key: {item.Key}, file: {file.AbsoluteFilePath})");
+						}
+
+						content[item.Key] = ProcessValue(item.Value);
+					}
 				}
 			}
-			
+
 			foreach (var item in platformSpecificContent)
 			{
 				string key = item.Key;
