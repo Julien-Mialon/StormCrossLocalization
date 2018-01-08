@@ -11,58 +11,8 @@ namespace Localization.WindowsPhone
 {
 	public class LocalizationWindowsPhoneTask : BaseLocalizationTask
 	{
-		protected override void Generate(Dictionary<string, List<ResxFile>> files)
+		protected override void GenerateForDirectory(string directory, Dictionary<string, string> keyValues)
 		{
-			List<string> keys = new List<string>();
-
-			foreach (string directory in files.Keys)
-			{
-				GenerateStrings(directory, files[directory]);
-
-				keys.AddRange(files[directory].SelectMany(x => x.Content.Keys.Select(y => y.SimplifyKey())));
-			}
-
-			keys = keys.Distinct().ToList();
-
-			GenerateLocalizationService(keys);
-			GenerateLocalizedStrings(keys);
-
-			base.Generate(files);
-		}
-
-		protected virtual void GenerateStrings(string directory, List<ResxFile> files)
-		{
-			Dictionary<string, string> content = new Dictionary<string, string>();
-			Dictionary<string, string> platformSpecificContent = new Dictionary<string, string>();
-
-			foreach (var item in files.SelectMany(x => x.Content))
-			{
-				if (item.Key.IsPlatformSpecificString())
-				{
-					if (item.Key.IsWindowsPhoneString())
-					{
-						platformSpecificContent.Add(item.Key, item.Value);
-					}
-				}
-				else
-				{
-					content.Add(item.Key, item.Value);
-				}
-			}
-
-			foreach (var item in platformSpecificContent)
-			{
-				string key = item.Key.SimplifyKey();
-				if (content.ContainsKey(key))
-				{
-					content[key] = item.Value;
-				}
-				else
-				{
-					content.Add(key, item.Value);
-				}
-			}
-			
 			XmlDocument document = new XmlDocument();
 			document.AppendChild(document.CreateXmlDeclaration("1.0", "utf-8", null));
 			XmlNode rootNode = document.CreateElement("root");
@@ -92,7 +42,7 @@ namespace Localization.WindowsPhone
 				rootNode.AppendChild(resHeader);
 			}
 
-			foreach (var pair in content)
+			foreach (var pair in keyValues)
 			{
 				XmlElement data = document.CreateElement("data");
 				XmlAttribute nameAttribute = document.CreateAttribute("name");
@@ -109,8 +59,18 @@ namespace Localization.WindowsPhone
 			string filepath = Path.Combine(directory, "Resources.resw");
 			document.SaveIfDifferent(filepath);
 			OutputResourceFilePath.Add(filepath);
+			
+			base.GenerateForDirectory(directory, keyValues);
 		}
 
+		protected override void GenerateForProject(List<string> keys)
+		{
+			GenerateLocalizationService(keys);
+			GenerateLocalizedStrings(keys);
+			
+			base.GenerateForProject(keys);
+		}
+		
 		protected virtual void GenerateLocalizationService(List<string> keys)
 		{
 			CodeCompileUnit codeUnit = new CodeCompileUnit();

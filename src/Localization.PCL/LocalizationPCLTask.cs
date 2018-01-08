@@ -8,22 +8,13 @@ namespace Localization.PCL
 {
 	public class LocalizationPCLTask : BaseLocalizationTask
 	{
-		protected override void Generate(Dictionary<string, List<ResxFile>> files)
+		protected override void GenerateForProject(List<string> keys)
 		{
-			List<string> keys = new List<string>();
-
-			foreach (ResxFile file in files.SelectMany(x => x.Value))
-			{
-				keys.AddRange(file.Content.Keys.Select(x => x.SimplifyKey()));
-			}
-
-			keys = keys.Distinct().ToList();
-
 			GenerateEnumFields(keys);
 			GenerateLocalizationService(keys);
 			GenerateLocalizedStrings(keys);
-
-			base.Generate(files);
+			
+			base.GenerateForProject(keys);
 		}
 		
 		protected virtual void GenerateEnumFields(List<string> keys)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using Microsoft.SqlServer.Server;
 
 namespace Localization.Core
 {
@@ -35,6 +36,8 @@ namespace Localization.Core
 		
 		public string Namespace { get; set; }
 		
+		public ITaskItem[] OverrideFiles { get; set; }
+		
 		protected string GenerationNamespace
 		{
 			get
@@ -61,7 +64,6 @@ namespace Localization.Core
 
 		public override bool Execute()
 		{
-			Dictionary<string, List<ResxFile>> resxFiles = new Dictionary<string, List<ResxFile>>();
 
 			if(InputFiles == null || InputFiles.Length == 0)
 			{
@@ -70,30 +72,12 @@ namespace Localization.Core
 
 			Log.LogMessage(MessageImportance.High, $"StormCrossLocalization: Processing strings file ({this.GetType().Name})");
 			BeforeRead();
-			foreach (ITaskItem inputFile in InputFiles)
-			{
-				string absoluteFilePath = inputFile.ItemSpec;
-				string projectFilePath = inputFile.GetOrDefaultMetadata(LINK_METADATA_NAME, absoluteFilePath);
-
-				string directory = Path.GetDirectoryName(projectFilePath) ?? string.Empty;
-
-				if (!resxFiles.ContainsKey(directory))
-				{
-					resxFiles.Add(directory, new List<ResxFile>());
-				}
-				Log.LogMessage(MessageImportance.High, $"\t- {projectFilePath}");
-				resxFiles[directory].Add(new ResxFile
-				{
-					AbsoluteFilePath = absoluteFilePath,
-					ProjectFilePath = projectFilePath,
-					Directory = directory,
-					Content = ReadResourceFile(absoluteFilePath)
-				});
-			}
+			Dictionary<string, List<ResxFile>> resxFiles = ReadInputFiles(InputFiles);
+			Dictionary<string, List<ResxFile>> overrideFiles = ReadInputFiles(OverrideFiles);
 			AfterRead();
 
 			BeforeGeneration();
-			Generate(resxFiles);
+			Generate(resxFiles, overrideFiles);
 			AfterGeneration();
 
 			SetOutputVariables();
@@ -115,6 +99,33 @@ namespace Localization.Core
 			return reader.ReadResourceFile(file);
 		}
 
+		private Dictionary<string, List<ResxFile>> ReadInputFiles(ITaskItem[] inputs)
+		{
+			Dictionary<string, List<ResxFile>> result = new Dictionary<string, List<ResxFile>>();
+			foreach (ITaskItem inputFile in inputs)
+			{
+				string absoluteFilePath = inputFile.ItemSpec;
+				string projectFilePath = inputFile.GetOrDefaultMetadata(LINK_METADATA_NAME, absoluteFilePath);
+
+				string directory = Path.GetDirectoryName(projectFilePath) ?? string.Empty;
+
+				if (!result.ContainsKey(directory))
+				{
+					result.Add(directory, new List<ResxFile>());
+				}
+				Log.LogMessage(MessageImportance.High, $"\t- {projectFilePath}");
+				result[directory].Add(new ResxFile
+				{
+					AbsoluteFilePath = absoluteFilePath,
+					ProjectFilePath = projectFilePath,
+					Directory = directory,
+					Content = ReadResourceFile(absoluteFilePath)
+				});
+			}
+
+			return result;
+		}
+
 		protected virtual void BeforeRead()
 		{
 			
@@ -130,7 +141,87 @@ namespace Localization.Core
 			
 		}
 
-		protected virtual void Generate(Dictionary<string, List<ResxFile>> files)
+		protected virtual void Generate(Dictionary<string, List<ResxFile>> files, Dictionary<string, List<ResxFile>> overrideFiles)
+		{
+			HashSet<string> keySet = new HashSet<string>();
+
+			foreach (KeyValuePair<string, List<ResxFile>> item in files)
+			{
+				if (!overrideFiles.TryGetValue(item.Key, out List<ResxFile> overrideFile))
+				{
+					overrideFile = new List<ResxFile>();
+				}
+				Dictionary<string, string> strings = GenerateStrings(item.Key, item.Value, overrideFile, keySet);
+				GenerateForDirectory(item.Key, strings);
+			}
+
+			List<string> keys = keySet.ToList();
+			GenerateForProject(keys);
+		}
+
+		protected virtual Dictionary<string, string> GenerateStrings(string directory, List<ResxFile> inputFiles, List<ResxFile> overrideFiles, HashSet<string> keys)
+		{
+			Dictionary<string, string> content = new Dictionary<string, string>();
+			Dictionary<string, string> platformSpecificContent = new Dictionary<string, string>();
+
+			foreach (var item in inputFiles.SelectMany(x => x.Content))
+			{
+				if (item.Key.IsPlatformSpecificString())
+				{
+					string simplifiedKey = item.Key.SimplifyKey(); 
+					if (IsCurrentPlatformKey(item.Key))
+					{
+						platformSpecificContent.Add(simplifiedKey, ProcessValue(item.Value));
+					}
+					keys.Add(simplifiedKey);
+				}
+				else
+				{
+					content.Add(item.Key, ProcessValue(item.Value));
+					keys.Add(item.Key);
+				}
+			}
+
+			foreach (var item in overrideFiles.SelectMany(x => x.Content))
+			{
+				if (item.Key.IsPlatformSpecificString())
+				{
+					string simplifiedKey = item.Key.SimplifyKey(); 
+					if (IsCurrentPlatformKey(item.Key))
+					{
+						platformSpecificContent[simplifiedKey] = ProcessValue(item.Value);
+					}
+					keys.Add(simplifiedKey);
+				}
+				else
+				{
+					content[item.Key] = ProcessValue(item.Value);
+					keys.Add(item.Key);
+				}
+			}
+			
+			foreach (var item in platformSpecificContent)
+			{
+				string key = item.Key;
+				if (content.ContainsKey(key))
+				{
+					content[key] = item.Value;
+				}
+				else
+				{
+					content.Add(key, item.Value);
+				}
+			}
+
+			return content;
+		}
+
+		protected virtual void GenerateForDirectory(string directory, Dictionary<string, string> keyValues)
+		{
+			
+		}
+
+		protected virtual void GenerateForProject(List<string> keys)
 		{
 			
 		}
@@ -143,6 +234,16 @@ namespace Localization.Core
 		protected virtual void SetOutputVariables()
 		{
 			
+		}
+
+		protected virtual string ProcessValue(string value)
+		{
+			return value;
+		}
+
+		protected virtual bool IsCurrentPlatformKey(string key)
+		{
+			return false;
 		}
 	}
 }
