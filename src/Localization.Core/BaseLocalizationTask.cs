@@ -178,7 +178,7 @@ namespace Localization.Core
 						string simplifiedKey = item.Key.SimplifyKey();
 						if (IsCurrentPlatformKey(item.Key))
 						{
-							if (!platformSpecificContent.TryAdd(simplifiedKey, ProcessValue(item.Value)))
+							if (!platformSpecificContent.TryAdd(simplifiedKey, ProcessValue(item.Value)) && !CanHaveDuplicatedKeys)
 							{
 								Log.LogError($"Duplicated key (key: {item.Key}, file: {file.AbsoluteFilePath})");
 							}
@@ -188,7 +188,7 @@ namespace Localization.Core
 					}
 					else
 					{
-						if (!content.TryAdd(item.Key, ProcessValue(item.Value)))
+						if (!content.TryAdd(item.Key, ProcessValue(item.Value)) && !CanHaveDuplicatedKeys)
 						{
 							Log.LogError($"Duplicated key (key: {item.Key}, file: {file.AbsoluteFilePath})");
 						}
@@ -272,5 +272,7 @@ namespace Localization.Core
 		{
 			return false;
 		}
+
+		protected virtual bool CanHaveDuplicatedKeys => false;
 	}
 }
