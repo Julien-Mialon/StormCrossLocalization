@@ -35,9 +35,9 @@ namespace Localization.iOS
 		protected override string ProcessValue(string value)
 		{
 			return value?.Replace("\\", "\\\\")
-					.Replace("\"", "\\\"")
-					.Replace("\n", "\\n")
-				;
+				.Replace("\"", "\\\"")
+				.Replace("\n", "\\n")
+				.Replace("\\\\n", "\\n");
 		}
 
 		protected override bool IsCurrentPlatformKey(string key) => key.IsIosString();

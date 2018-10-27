@@ -54,7 +54,9 @@ namespace Localization.Android
 		{
 			return value?.Replace("\\", "\\\\")
 				.Replace("\"", "\\\"")
-				.Replace("'", "\\'");
+				.Replace("'", "\\'")
+				.Replace("\n", "\\n")
+				.Replace("\\\\n", "\\n");
 		}
 
 		protected override bool IsCurrentPlatformKey(string key) => key.IsAndroidString();
