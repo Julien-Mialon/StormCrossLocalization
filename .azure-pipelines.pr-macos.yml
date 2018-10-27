@@ -24,6 +24,6 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build'
   inputs:
-    projects: src\StormCrossLocalization.sln
+    command: build
+    projects: src/StormCrossLocalization.sln
     arguments: '-c $(BuildConfiguration)'
-    workingDirectory: src
