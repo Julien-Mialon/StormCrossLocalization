@@ -8,7 +8,6 @@ queue:
   name: Hosted macOS
 
 variables:
-  BuildPlatform: 'any cpu'
   BuildConfiguration: 'release'
 
 steps:
@@ -22,9 +21,9 @@ steps:
   inputs:
     restoreSolution: src\StormCrossLocalization.sln
 
-- task: VSBuild@1
-  displayName: Build solution
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
   inputs:
-    solution: src\StormCrossLocalization.sln
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    projects: StormCrossLocalization.sln
+    arguments: '-c $(BuildConfiguration)'
+    workingDirectory: src
