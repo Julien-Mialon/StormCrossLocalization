@@ -19,10 +19,12 @@ steps:
 
 - task: NuGetCommand@2
   displayName: NuGet restore
+  inputs:
+    restoreSolution: src\StormCrossLocalization.sln
 
 - task: VSBuild@1
   displayName: Build solution
   inputs:
-    solution: src/StormCrossLocalization.sln
+    solution: src\StormCrossLocalization.sln
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
