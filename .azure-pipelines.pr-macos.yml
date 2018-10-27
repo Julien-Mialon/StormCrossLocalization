@@ -1,0 +1,28 @@
+resources:
+- repo: self
+  clean: true
+
+name: StormCrossLocalization_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+queue:
+  name: Hosted macOS
+
+variables:
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Use NuGet 4.7.x
+  inputs:
+    versionSpec: 4.7.x
+
+- task: NuGetCommand@2
+  displayName: NuGet restore
+
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: src/StormCrossLocalization.sln
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
