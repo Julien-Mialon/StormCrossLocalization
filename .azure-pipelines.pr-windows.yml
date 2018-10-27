@@ -1,0 +1,30 @@
+resources:
+- repo: self
+  clean: true
+
+name: StormCrossLocalization-Windows-PR-$(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
+
+queue:
+  name: Hosted VS2017
+
+variables:
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Use NuGet 4.7.x
+  inputs:
+    versionSpec: 4.7.x
+
+- task: NuGetCommand@2
+  displayName: NuGet restore
+  inputs:
+    restoreSolution: src\StormCrossLocalization.sln
+
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: src\StormCrossLocalization.sln
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
