@@ -123,7 +123,7 @@ namespace Localization.iOS
 			};
 			classDeclaration.Members.Add(constructor);
 			
-			CodeMethodReferenceExpression localizedStringsMethodReference = new CodeMethodReferenceExpression(new CodePropertyReferenceExpression(new CodeTypeReferenceExpression("NSBundle"), "MainBundle"), "LocalizedString");
+			CodeMethodReferenceExpression localizedStringsMethodReference = new CodeMethodReferenceExpression(new CodePropertyReferenceExpression(new CodeTypeReferenceExpression("NSBundle"), "MainBundle"), "GetLocalizedString");
 
 			foreach (string key in keys)
 			{
