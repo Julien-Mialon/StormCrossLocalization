@@ -73,7 +73,7 @@ namespace Localization.iOS
 			classDeclaration.Members.Add(method);
 
 			CodeVariableReferenceExpression methodParam = new CodeVariableReferenceExpression("key");
-			CodeMethodReferenceExpression localizedStringsMethodReference = new CodeMethodReferenceExpression(new CodePropertyReferenceExpression(new CodeTypeReferenceExpression("NSBundle"), "MainBundle"), "LocalizedString");
+			CodeMethodReferenceExpression localizedStringsMethodReference = new CodeMethodReferenceExpression(new CodePropertyReferenceExpression(new CodeTypeReferenceExpression("NSBundle"), "MainBundle"), "GetLocalizedString");
 
 			foreach (string key in keys)
 			{
@@ -84,7 +84,7 @@ namespace Localization.iOS
 						new CodePropertyReferenceExpression(new CodeVariableReferenceExpression(Constants.ENUM_NAME), key)
 						),
 					new CodeMethodReturnStatement(
-						new CodeMethodInvokeExpression(localizedStringsMethodReference, new CodePrimitiveExpression(key), new CodePrimitiveExpression(null))
+						new CodeMethodInvokeExpression(localizedStringsMethodReference, new CodePrimitiveExpression(key))
 						)
 					);
 
@@ -135,7 +135,7 @@ namespace Localization.iOS
 				};
 
 				property.GetStatements.Add(new CodeMethodReturnStatement(
-					new CodeMethodInvokeExpression(localizedStringsMethodReference, new CodePrimitiveExpression(key), new CodePrimitiveExpression(null))
+					new CodeMethodInvokeExpression(localizedStringsMethodReference, new CodePrimitiveExpression(key))
 					));
 				classDeclaration.Members.Add(property);
 			}
