@@ -10,7 +10,7 @@ const string DEPLOYMENT_TOOLS_DIRECTORY = DEPLOYMENT_DIRECTORY + "/localization"
 const string DEPLOYMENT_BUILD_DIRECTORY = DEPLOYMENT_DIRECTORY + "/build";
 const string OUTPUT_BUILD_PATH = "/bin/Release/netstandard2.0/publish/";
 
-const string PCL_TFM = "netstandard1.0;netstandard2.0";
+const string PCL_TFM = "netstandard2.0";
 const string WINPHONE_TFM = "win;wp;wp8;wp81;wpa81;uap";
 const string ANDROID_TFM = "monoandroid";
 const string IOS_TFM = "monotouch;xamarinios";

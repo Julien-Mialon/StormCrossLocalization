@@ -17,6 +17,15 @@ steps:
     filename: bash
     arguments: 'build.sh --target release --args.beta=$(Build.BuildId)'
     workingFolder: cake
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop')) 
+
+- task: CmdLine@1
+  displayName: Cake build
+  inputs:
+    filename: bash
+    arguments: 'build.sh --target release'
+    workingFolder: cake
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/master')) 
 
 - task: CopyFiles@2
   displayName: "Copy Files to: $(build.artifactstagingdirectory)"
