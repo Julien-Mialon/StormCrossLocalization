@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- Define newly available build action -->
+	<ItemGroup>
+		<AvailableItemName Include="LocalizationFile" />
+		<AvailableItemName Include="LocalizationOverrideFile" />
+	</ItemGroup>
+</Project>

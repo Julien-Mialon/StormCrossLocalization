@@ -85,8 +85,8 @@ fi
 
 # Start Cake
 if $SHOW_VERSION; then
-    exec $MONO_CMD $CAKE_EXE -version
+    exec $MONO_CMD $CAKE_EXE --version
 else
     echo "Script arguments: $SCRIPT_ARGUMENTS"
-    exec $MONO_CMD $CAKE_EXE $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET $DRYRUN --settings_skipverification=true "${SCRIPT_ARGUMENTS[@]}"
+    exec $MONO_CMD $CAKE_EXE $SCRIPT --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
 fi

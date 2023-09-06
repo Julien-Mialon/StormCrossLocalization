@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask AssemblyFile="..\..\localization\netstandard2.0\Localization.Android.dll"
+				   TaskName="Localization.Android.LocalizationAndroidTask" />
+
+	<Target Name="LocalizationTask" BeforeTargets="BeforeBuild">
+		<!--Execute resw transformation-->
+		<LocalizationAndroidTask InputFiles="@(LocalizationFile)"
+								 OverrideFiles="@(LocalizationOverrideFile)"
+								 DefaultNamespace="$(RootNamespace)"
+								 >
+			<Output TaskParameter="OutputCompileFiles" ItemName="StormOutputCompileFiles" />
+			<Output TaskParameter="OutputResourceFiles" ItemName="StormOutputResourceFiles" />
+		</LocalizationAndroidTask>
+	</Target>
+</Project>
