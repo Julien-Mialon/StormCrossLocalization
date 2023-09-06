@@ -15,7 +15,7 @@ steps:
   displayName: Cake build
   inputs:
     filename: bash
-    arguments: 'build.sh --target deploy-pack --args.beta=$(Build.BuildId)'
+    arguments: 'build.sh --target deploy-pack --args-beta=$(Build.BuildId)'
     workingFolder: cake
   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/develop')) 
 

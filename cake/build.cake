@@ -2,7 +2,7 @@
 
 const string NUGET_VERSION = "17.0.0";
 
-string betaVersion = Argument("args.beta", "");
+string betaVersion = Argument("args-beta", "");
 string MODULE_VERSION = NUGET_VERSION;
 if(!string.IsNullOrEmpty(betaVersion) && int.TryParse(betaVersion, out int betaVersionNumber))
 {
