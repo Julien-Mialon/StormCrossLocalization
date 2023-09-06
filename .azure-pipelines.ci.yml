@@ -8,7 +8,7 @@ trigger:
 name: StormCrossLocalization-CI-$(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
 
 queue:
-  name: Hosted VS2017
+  name: windows-latest
 
 steps:
 - task: CmdLine@1
