@@ -1,4 +1,7 @@
-#l "../../Cake.Storm/fluent/src/scripts/bootstrapper.csx"
+#load nuget:?package=Cake.Storm.Fluent
+#load nuget:?package=Cake.Storm.Fluent.Transformations
+#load nuget:?package=Cake.Storm.Fluent.NuGet
+#load nuget:?package=Cake.Storm.Fluent.DotNetCore
 
 const string NUGET_VERSION = "17.0.0";
 
