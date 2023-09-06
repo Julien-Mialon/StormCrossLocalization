@@ -7,8 +7,8 @@ trigger:
 
 name: StormCrossLocalization-CI-$(SourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
 
-queue:
-  name: windows-latest
+pool:
+  vmImage: windows-latest
 
 steps:
 - task: CmdLine@1
